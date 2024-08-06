@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor's Appointment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>MedAppoint: Streamlined Doctor Appointment Booking System</h1>
+    <div class="appointment-container">
+        <form id="appointmentForm">
+            <h2>Book an Appointment</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="time">Select Time:</label>
+            <select id="time" name="time" required>
+                <option value="17:00">5:00 PM</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="19:00">7:00 PM</option>
+                <option value="20:00">8:00 PM</option>
+            </select>
+            <button type="submit">Book Appointment</button>
+        </form>
+    </div>
+    <div id="result"></div>
+    <script>
+        document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const doctorName = sessionStorage.getItem('doctorName');
+            const specialty = sessionStorage.getItem('specialty');
+            const patientName = document.getElementById('name').value;
+            const selectedTime = document.getElementById('time').value;
+            const result = document.getElementById('result');
+
+            if (parseInt(selectedTime.split(':')[0]) >= 17) {
+                result.textContent = `Appointment with Dr. ${doctorName} booked successfully for ${patientName} at ${selectedTime}.`;
+                result.style.color = 'green';
+            } else {
+                result.textContent = `Dr. ${doctorName} is only available after 5 PM.`;
+                result.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
